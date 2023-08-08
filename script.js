@@ -29,4 +29,13 @@ btnRoll.addEventListener("click", () => {
 
   dice.src = `dice-${diceNum}.png`;
   console.log("dice rolled:", diceNum);
+
+  // Adding the current score
+  if (diceNum !== 1) {
+    currentScore += diceNum;
+    current0.textContent = currentScore;
+  } else {
+    currentScore = 0;
+    current0.textContent = currentScore;
+  }
 });
