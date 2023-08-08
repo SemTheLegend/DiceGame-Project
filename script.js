@@ -22,3 +22,11 @@ score1.textContent = 0;
 const btnNew = document.querySelector(".btn--new");
 const btnRoll = document.querySelector(".btn--roll");
 const btnHold = document.querySelector(".btn--hold");
+
+// Displaying the dice image
+btnRoll.addEventListener("click", () => {
+  const diceNum = Math.trunc(Math.random() * 6) + 1;
+
+  dice.src = `dice-${diceNum}.png`;
+  console.log("dice rolled:", diceNum);
+});
