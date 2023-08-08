@@ -39,3 +39,10 @@ btnRoll.addEventListener("click", () => {
     current0.textContent = currentScore;
   }
 });
+
+btnHold.addEventListener("click", () => {
+  scores[0] = currentScore;
+  score0.textContent = scores[0];
+  currentScore = 0;
+  current0.textContent = currentScore;
+});
