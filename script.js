@@ -23,6 +23,12 @@ const btnNew = document.querySelector(".btn--new");
 const btnRoll = document.querySelector(".btn--roll");
 const btnHold = document.querySelector(".btn--hold");
 
+// Toggle function
+const toggle = () => {
+  player0.classList.remove("player--active");
+  player1.classList.add("player--active");
+}
+
 // Displaying the dice image
 btnRoll.addEventListener("click", () => {
   const diceNum = Math.trunc(Math.random() * 6) + 1;
@@ -45,4 +51,5 @@ btnHold.addEventListener("click", () => {
   score0.textContent = scores[0];
   currentScore = 0;
   current0.textContent = currentScore;
+  toggle()
 });
