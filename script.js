@@ -46,7 +46,7 @@ btnRoll.addEventListener("click", () => {
   const diceNum = Math.trunc(Math.random() * 6) + 1;
 
   dice.src = `dice-${diceNum}.png`;
-  console.log("dice rolled:", diceNum);
+  // console.log("dice rolled:", diceNum);
 
   // Adding the current score
   if (scores[0] >= 100) {
