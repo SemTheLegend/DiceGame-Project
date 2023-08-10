@@ -1,6 +1,6 @@
-# THE PIG GAME
+# THE DICE GAME
 
-The Pig Gsme is a game that runs on the browser.
+The Dice Game is a game that runs on the browser.
 It consists of two players and each player is given an opportunity to roll a dice. This project is meant to solidify the skills and understanding of DOM manipulation on CSS classes. Theres alot of UI changes that happen based on how the plays the game.
 
 ## How To Play
