@@ -217,3 +217,18 @@ btnHold.addEventListener("click", () => {
     }
   }
 });
+
+btnNewGame.addEventListener("click", () => {
+  document.querySelector(`.player--${activePlayer}`).classList.remove("player--winner");
+  playing = true;
+  currentScore = 0;
+  scores[0] = 0;
+  scores[1] = 0;
+  activePlayer = 0;
+  player0El.classList.add("player--active");
+  player1El.classList.remove("player--active");
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+  current0El.textContent = 0;
+  current1El.textContent = 0;
+});
