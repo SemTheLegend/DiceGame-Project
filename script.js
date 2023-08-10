@@ -37,6 +37,7 @@ const toggle = (player1, player2) => {
     player2.classList.remove("player--active");
   }
 
+  // Swaps the current player with non current player.
   currentPlayer = player2;
   notCurrentPlayer = player1;
 }
@@ -78,6 +79,7 @@ btnRoll.addEventListener("click", () => {
   }
 });
 
+// When the hold button is clicked, execute
 btnHold.addEventListener("click", () => {
   if (currentPlayer === player0) {
     scores[0] += currentScore;
@@ -96,10 +98,11 @@ btnHold.addEventListener("click", () => {
     currentScore = 0;
     current1.textContent = currentScore;
   }
-
+  // Switch the player
   toggle(currentPlayer, notCurrentPlayer);
 });
 
+// When the new game button is clicked, reset game stats.
 btnNew.addEventListener("click", () => {
   scores[0] = 0;
   scores[1] = 0;
