@@ -19,6 +19,9 @@ let currentScore = 0;
 let currentPlayer = player0;
 let notCurrentPlayer = player1;
 
+// set the current game status
+let playing = true;
+
 score0.textContent = 0;
 score1.textContent = 0;
 
@@ -43,41 +46,45 @@ const toggle = (player1, player2) => {
 }
 
 // Displaying the dice image
-btnRoll.addEventListener("click", () => {
-  const diceNum = Math.trunc(Math.random() * 6) + 1;
+if (playing) {
+  btnRoll.addEventListener("click", () => {
+    const diceNum = Math.trunc(Math.random() * 6) + 1;
 
-  dice.src = `dice-${diceNum}.png`;
-  // console.log("dice rolled:", diceNum);
+    dice.src = `dice-${diceNum}.png`;
+    // console.log("dice rolled:", diceNum);
 
-  // Adding the current score
-  if (scores[0] >= 100) {
-    alert("🎉Player 1 Has won the game.🎉")
-  } else if (scores[1] >= 100) {
-    alert("🎉Player 2 Has won the game.🎉");
-  } else {
-    if (diceNum !== 1) {
-      currentScore += diceNum;
-
-      if (currentPlayer === player0) {
-        current0.textContent = currentScore;
-      }
-
-      if (currentPlayer === player1) {
-        current1.textContent = currentScore;
-      }
+    // Adding the current score
+    if (scores[0] >= 100) {
+      alert("🎉Player 1 Has won the game.🎉");
+      playing = false;
+    } else if (scores[1] >= 100) {
+      alert("🎉Player 2 Has won the game.🎉");
+      playing = false;
     } else {
-      currentScore = 0;
+      if (diceNum !== 1) {
+        currentScore += diceNum;
 
-      if (currentPlayer === player0) {
-        current0.textContent = currentScore;
+        if (currentPlayer === player0) {
+          current0.textContent = currentScore;
+        }
+
+        if (currentPlayer === player1) {
+          current1.textContent = currentScore;
+        }
+      } else {
+        currentScore = 0;
+
+        if (currentPlayer === player0) {
+          current0.textContent = currentScore;
+        }
+        if (currentPlayer === player1) {
+          current1.textContent = currentScore;
+        }
+        toggle(currentPlayer, notCurrentPlayer)
       }
-      if (currentPlayer === player1) {
-        current1.textContent = currentScore;
-      }
-      toggle(currentPlayer, notCurrentPlayer)
     }
-  }
-});
+  });
+}
 
 // When the hold button is clicked, execute
 btnHold.addEventListener("click", () => {
@@ -86,6 +93,7 @@ btnHold.addEventListener("click", () => {
     score0.textContent = scores[0];
     if (scores[0] >= 100) {
       alert("🎉Player 1 Has won the game.🎉");
+      playing = false;
     }
     currentScore = 0;
     current0.textContent = currentScore;
@@ -94,6 +102,7 @@ btnHold.addEventListener("click", () => {
     score1.textContent = scores[1];
     if (scores[1] >= 100) {
       alert("🎉Player 2 Has won the game.🎉");
+      playing = false;
     }
     currentScore = 0;
     current1.textContent = currentScore;
@@ -104,6 +113,7 @@ btnHold.addEventListener("click", () => {
 
 // When the new game button is clicked, reset game stats.
 btnNew.addEventListener("click", () => {
+  playing = true
   scores[0] = 0;
   scores[1] = 0;
   currentScore = 0;
