@@ -15,6 +15,10 @@ const current0 = document.getElementById("current--0");
 const current1 = document.getElementById("current--1");
 let currentScore = 0;
 
+// Sets the current player for the game
+let currentPlayer = player0;
+let notCurrentPlayer = player1;
+
 score0.textContent = 0;
 score1.textContent = 0;
 
@@ -23,10 +27,18 @@ const btnNew = document.querySelector(".btn--new");
 const btnRoll = document.querySelector(".btn--roll");
 const btnHold = document.querySelector(".btn--hold");
 
-// Toggle function
-const toggle = () => {
-  player0.classList.remove("player--active");
-  player1.classList.add("player--active");
+// Toggle function for switching players
+const toggle = (player1, player2) => {
+  if (player1.classList.contains("player--active")) {
+    player1.classList.remove("player--active");
+    player2.classList.add("player--active");
+  } else {
+    player1.classList.add("player--active");
+    player2.classList.remove("player--active");
+  }
+
+  currentPlayer = player2;
+  notCurrentPlayer = player1;
 }
 
 // Displaying the dice image
@@ -37,19 +49,67 @@ btnRoll.addEventListener("click", () => {
   console.log("dice rolled:", diceNum);
 
   // Adding the current score
-  if (diceNum !== 1) {
-    currentScore += diceNum;
-    current0.textContent = currentScore;
+  if (scores[0] >= 100) {
+    alert("🎉Player 1 Has won the game.🎉")
+  } else if (scores[1] >= 100) {
+    alert("🎉Player 2 Has won the game.🎉");
   } else {
-    currentScore = 0;
-    current0.textContent = currentScore;
+    if (diceNum !== 1) {
+      currentScore += diceNum;
+
+      if (currentPlayer === player0) {
+        current0.textContent = currentScore;
+      }
+
+      if (currentPlayer === player1) {
+        current1.textContent = currentScore;
+      }
+    } else {
+      currentScore = 0;
+
+      if (currentPlayer === player0) {
+        current0.textContent = currentScore;
+      }
+      if (currentPlayer === player1) {
+        current1.textContent = currentScore;
+      }
+      toggle(currentPlayer, notCurrentPlayer)
+    }
   }
 });
 
 btnHold.addEventListener("click", () => {
-  scores[0] = currentScore;
-  score0.textContent = scores[0];
+  if (currentPlayer === player0) {
+    scores[0] += currentScore;
+    score0.textContent = scores[0];
+    if (scores[0] >= 100) {
+      alert("🎉Player 1 Has won the game.🎉");
+    }
+    currentScore = 0;
+    current0.textContent = currentScore;
+  } else if (currentPlayer === player1) {
+    scores[1] += currentScore;
+    score1.textContent = scores[1];
+    if (scores[1] >= 100) {
+      alert("🎉Player 2 Has won the game.🎉");
+    }
+    currentScore = 0;
+    current1.textContent = currentScore;
+  }
+
+  toggle(currentPlayer, notCurrentPlayer);
+});
+
+btnNew.addEventListener("click", () => {
+  scores[0] = 0;
+  scores[1] = 0;
   currentScore = 0;
+  currentPlayer = player0;
+  notCurrentPlayer = player1;
+  score0.textContent = scores[0];
+  score1.textContent = scores[1];
   current0.textContent = currentScore;
-  toggle()
+  current1.textContent = currentScore;
+  player1.classList.remove("player--active");
+  player0.classList.add("player--active");
 });
