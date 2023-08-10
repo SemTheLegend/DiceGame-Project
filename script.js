@@ -154,17 +154,30 @@ const btnHold = document.querySelector(".btn--hold");
 // Variables for storing scores
 let currentScore = 0;
 const scores = new Array(0, 0);
-
 // Variable for storing active player
 let activePlayer = 0;
-
 // Variable for storing playing state
 let playing = true;
 
-// Starting Conditions
-score0El.textContent = 0;
-score1El.textContent = 0;
-diceEl.classList.add("hidden");
+const init = () => {
+  // Starting Conditions
+  playing = true;
+  activePlayer = 0;
+  currentScore = 0;
+  scores[0] = 0;
+  scores[1] = 0;
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+  current0El.textContent = 0;
+  current1El.textContent = 0;
+  diceEl.classList.add("hidden");
+  player0El.classList.add("player--active");
+  player1El.classList.remove("player--active");
+  player0El.classList.remove("player--winner");
+  player1El.classList.remove("player--winner");
+}
+
+init();
 
 const switchPlayer = () => {
   // Reset curent score
@@ -180,7 +193,6 @@ btnRoll.addEventListener("click", () => {
   if (playing) {
     // 1. Generate random dice roll
     const dice = Math.trunc(Math.random() * 6) + 1;
-    console.log(dice);
 
     // 2. Display dice roll
     diceEl.classList.remove("hidden");
@@ -205,7 +217,7 @@ btnHold.addEventListener("click", () => {
     document.getElementById(`score--${activePlayer}`).textContent = scores[activePlayer];
 
     // 2. Check if player score >= 100,
-    if (scores[activePlayer] >= 20) {
+    if (scores[activePlayer] >= 100) {
       // 3. Finish the game
       playing = false;
       document.querySelector(`.player--${activePlayer}`).classList.add("player--winner");
@@ -218,17 +230,4 @@ btnHold.addEventListener("click", () => {
   }
 });
 
-btnNewGame.addEventListener("click", () => {
-  document.querySelector(`.player--${activePlayer}`).classList.remove("player--winner");
-  playing = true;
-  currentScore = 0;
-  scores[0] = 0;
-  scores[1] = 0;
-  activePlayer = 0;
-  player0El.classList.add("player--active");
-  player1El.classList.remove("player--active");
-  score0El.textContent = 0;
-  score1El.textContent = 0;
-  current0El.textContent = 0;
-  current1El.textContent = 0;
-});
+btnNewGame.addEventListener("click", init);
